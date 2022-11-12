@@ -1,0 +1,36 @@
+{
+  "name": "@frontle/cordova-keyvaluestorage",
+  "version": "1.0.0",
+  "type": "module",
+  "module": "./",
+  "description": "File-based key-value storage",
+  "keywords": [
+    "key-value storage",
+    "key value storage",
+    "key value store",
+    "key value",
+    "browser",
+    "android",
+    "ios",
+    "cordova",
+    "electron",
+    "frontle"
+  ],
+  "author": "Yun HyeongJun <y37653@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Frontle-Foundation/cordova-keyvaluestorage.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Frontle-Foundation/cordova-keyvaluestorage/issues"
+  },
+  "homepage": "https://github.com/Frontle-Foundation/cordova-keyvaluestorage#readme",
+  "files": [
+    "LICENSE",
+    "README.md",
+    "util/",
+    "index.js"
+  ],
+  "dependencies": {}
+}
