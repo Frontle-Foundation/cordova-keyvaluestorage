@@ -28,7 +28,7 @@ console.log(await cordovaKeyValueStorage.getItem('test')); // 123
 **Frontle**
 
 ```shell
-frontle install @frontle/cordova-keyvaluestorage --notBuild
+frontle install @frontle/cordova-keyvaluestorage --noBuild
 ```
 
 **Download files**
