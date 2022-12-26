@@ -1,6 +1,6 @@
 {
   "name": "@frontle/cordova-keyvaluestorage",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "module": "./",
   "description": "File-based key-value storage",
@@ -9,6 +9,8 @@
     "key value storage",
     "key value store",
     "key value",
+    "vanilla",
+    "javascript",
     "browser",
     "android",
     "ios",
