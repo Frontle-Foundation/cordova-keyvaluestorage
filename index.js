@@ -1,5 +1,10 @@
-import { GetPlatformId } from "./util/getPlatformId.js";
-import { CordovaFileUtil } from "./util/cordovaFileUtil.js";
+import { GetPlatformID } from "./util/getPlatformId.js";
+import {
+  getDirEntry,
+  getFileEntry,
+  read,
+  write,
+} from "./util/cordovaFileUtil.js";
 
 export class CordovaKeyValueStorage {
   static _instance = null;
@@ -10,7 +15,6 @@ export class CordovaKeyValueStorage {
   }
 
   #dir = null;
-  #cordovaFileUtil = new CordovaFileUtil();
 
   getStorageDirEntry() {
     return this.#dir;
@@ -18,9 +22,9 @@ export class CordovaKeyValueStorage {
 
   async load(storageFolderName = "cordovaKeyValueStorage") {
     try {
-      const platformId = GetPlatformId.getId();
+      const platformId = GetPlatformID.getId();
       if (platformId === "browser" || platformId === "electron") return;
-      this.#dir = await this.#cordovaFileUtil.getDirEntry(
+      this.#dir = await getDirEntry(
         cordova.file.dataDirectory,
         storageFolderName
       );
@@ -35,7 +39,7 @@ export class CordovaKeyValueStorage {
         let readData = "";
 
         // read file
-        readData = await this.#cordovaFileUtil.read(fileEntry);
+        readData = await read(fileEntry);
         try {
           readData = JSON.parse(readData);
         } catch (e) {
@@ -51,7 +55,7 @@ export class CordovaKeyValueStorage {
         readData = JSON.stringify(readData);
 
         // write file
-        await this.#cordovaFileUtil.write(fileEntry, readData);
+        await write(fileEntry, readData);
 
         resolve();
       } catch (e) {
@@ -67,7 +71,7 @@ export class CordovaKeyValueStorage {
       if (typeof fileName !== "string") throw "file name is not string";
 
       // if browser
-      const platformId = GetPlatformId.getId();
+      const platformId = GetPlatformID.getId();
       if (platformId === "browser" || platformId === "electron") {
         let value = localStorage.getItem(key);
         if (value === null) value = undefined;
@@ -75,13 +79,10 @@ export class CordovaKeyValueStorage {
       }
 
       // get file entry
-      const fileEntry = await this.#cordovaFileUtil.getFileEntry(
-        fileName,
-        this.#dir
-      );
+      const fileEntry = await getFileEntry(fileName, this.#dir);
 
       // read file
-      const fileData = await this.#cordovaFileUtil.read(fileEntry);
+      const fileData = await read(fileEntry);
 
       // get value
       let result = undefined;
@@ -106,17 +107,14 @@ export class CordovaKeyValueStorage {
       if (typeof fileName !== "string") throw "file name is not string";
 
       // if browser
-      const platformId = GetPlatformId.getId();
+      const platformId = GetPlatformID.getId();
       if (platformId === "browser" || platformId === "electron") {
         localStorage.setItem(key, value);
         return;
       }
 
       // get file entry
-      const fileEntry = await this.#cordovaFileUtil.getFileEntry(
-        fileName,
-        this.#dir
-      );
+      const fileEntry = await getFileEntry(fileName, this.#dir);
 
       // write file
       await this.#writeJson(fileEntry, { [key]: value });
