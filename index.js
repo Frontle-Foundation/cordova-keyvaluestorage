@@ -22,7 +22,7 @@ export class CordovaKeyValueStorage {
 
   async load(storageFolderName = "cordovaKeyValueStorage") {
     try {
-      const platformId = GetPlatformID.getId();
+      const platformId = GetPlatformID();
       if (platformId === "browser" || platformId === "electron") return;
       this.#dir = await getDirEntry(
         cordova.file.dataDirectory,
@@ -71,7 +71,7 @@ export class CordovaKeyValueStorage {
       if (typeof fileName !== "string") throw "file name is not string";
 
       // if browser
-      const platformId = GetPlatformID.getId();
+      const platformId = GetPlatformID();
       if (platformId === "browser" || platformId === "electron") {
         let value = localStorage.getItem(key);
         if (value === null) value = undefined;
@@ -107,7 +107,7 @@ export class CordovaKeyValueStorage {
       if (typeof fileName !== "string") throw "file name is not string";
 
       // if browser
-      const platformId = GetPlatformID.getId();
+      const platformId = GetPlatformID();
       if (platformId === "browser" || platformId === "electron") {
         localStorage.setItem(key, value);
         return;
